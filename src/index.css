@@ -23,8 +23,8 @@
 
 }
 
-.rdp {
-  --rdp-accent-color: #ffc83c;
-  --rdp-background-color: #24303F;
 
+.rdp {
+  --rdp-accent-color: #ffc83c !important;
+  --rdp-background-color: #24303F !important;
 }

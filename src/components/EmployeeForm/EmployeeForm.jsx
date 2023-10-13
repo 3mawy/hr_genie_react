@@ -90,7 +90,7 @@ const EmployeeForm = ({onClose, action=null, employeeToEdit={}}) => {
                 </div>
                 <button
                     type="submit"
-                    className="w-full mt-2 cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                    className="w-full mt-2 font-bold cursor-pointer rounded-lg border border-primary bg-primary p-4 text-boxdark transition hover:bg-opacity-90"
                 >
                     Submit
                 </button>
