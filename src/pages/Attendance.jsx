@@ -3,7 +3,7 @@ import DatePicker from "../components/DatePicker/DatePicker.jsx";
 import {useAttendance} from "../hooks/useAttendance.jsx";
 
 const Attendance = () => {
-    const {selectedDate, setSelectedDate, employeesWithAttendance} = useAttendance()
+    const {selectedDate, setSelectedDate, employeesWithAttendance, isLoadingList} = useAttendance()
     const handleDateChange = (date) =>{
         setSelectedDate(date)
     }
@@ -13,7 +13,7 @@ const Attendance = () => {
                 <DatePicker onDateSelect={handleDateChange}/>
             </div>
             <div className="col-span-12">
-                <EmployeesTable employees={employeesWithAttendance} currentDate={selectedDate}/>
+                <EmployeesTable employees={employeesWithAttendance} currentDate={selectedDate} isLoading={isLoadingList}/>
             </div>
         </div>
     );

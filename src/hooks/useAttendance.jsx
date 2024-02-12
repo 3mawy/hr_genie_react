@@ -15,9 +15,13 @@ export const useAttendance = () => {
     const {employees, employeesWithAttendance, setEmployeesWithAttendance} = useGlobalState()
 
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isLoadingList, setIsLoadingList] = useState(false);
+    const [isLoadingAdd, setIsLoadingAdd] = useState(true);
+
     const listAttendance = async (date) => {
 
         try {
+            setIsLoadingList(true);
             const attendanceDictionary = {};
             const attendanceData = await listAttendanceByDate(formatDate(date))
             for (const attendance of attendanceData.data) {
@@ -33,10 +37,13 @@ export const useAttendance = () => {
             setEmployeesWithAttendance(employeesWithAttendanceData);
         } catch (error) {
             console.error("Error fetching attendance data:", error);
+        } finally {
+            setIsLoadingList(false);
         }
     };
     const addAttendance = async ({date, employee, attendanceStatus}) => {
         try {
+            setIsLoadingAdd(true);
             const response = await addAttendanceRequest({date: formatDate(date), employee, attendanceStatus});
 
             if (response.status === 201) {
@@ -50,6 +57,8 @@ export const useAttendance = () => {
             }
         } catch (error) {
             console.error("Error adding attendance:", error);
+        } finally {
+            setIsLoadingAdd(false);
         }
     };
     useEffect(() => {
@@ -60,6 +69,8 @@ export const useAttendance = () => {
         setSelectedDate,
         employeesWithAttendance,
         listAttendance,
-        addAttendance
+        addAttendance,
+        isLoadingList,
+        isLoadingAdd
     }
 }
