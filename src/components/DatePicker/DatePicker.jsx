@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import { format } from 'date-fns';
 import { DayPicker} from 'react-day-picker';
@@ -14,7 +14,9 @@ const DatePicker = ({onDateSelect}) => {
     const toggleDayPicker = () => {
         setDayPickerVisibility(!isDayPickerVisible);
     };
-
+    useEffect(() => {
+        onDateSelect(selected);
+    }, []);
     return ( <div className={'relative bg-boxdark rounded-sm'}>
             <div className={`flex place-items-center gap-4 font-bold py-3 px-8`}>
                 <button className={`bg-meta-6 p-3.5 rounded-sm relative text-black `} onClick={toggleDayPicker}>

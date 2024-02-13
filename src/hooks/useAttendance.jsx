@@ -3,20 +3,20 @@ import {addAttendanceRequest, listAttendanceByDate} from "../utils/remotes.js";
 import {useEffect, useState} from "react";
 import {useGlobalState} from "../context/GlobalStateContext.jsx";
 function formatDate(date = new Date()) {
-  const year = date.toLocaleString('default', {year: 'numeric'});
-  const month = date.toLocaleString('default', {
+  const year = date?.toLocaleString('default', {year: 'numeric'});
+  const month = date?.toLocaleString('default', {
     month: '2-digit',
   });
-  const day = date.toLocaleString('default', {day: '2-digit'});
+  const day = date?.toLocaleString('default', {day: '2-digit'});
 
   return [year, month, day].join('-');
 }
 export const useAttendance = () => {
     const {employees, employeesWithAttendance, setEmployeesWithAttendance} = useGlobalState()
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
     const [isLoadingList, setIsLoadingList] = useState(false);
-    const [isLoadingAdd, setIsLoadingAdd] = useState(true);
+    const [isLoadingAdd, setIsLoadingAdd] = useState(false);
 
     const listAttendance = async (date) => {
 
@@ -62,7 +62,9 @@ export const useAttendance = () => {
         }
     };
     useEffect(() => {
-        listAttendance(selectedDate);
+        if (selectedDate){
+            listAttendance(selectedDate);
+        }
     }, [selectedDate, employees]);
     return {
         selectedDate,
